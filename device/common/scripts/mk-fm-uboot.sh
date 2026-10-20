@@ -12,7 +12,6 @@ SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 RK_SDK_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 
 RKDEVTOOL="/usr/local/bin/rkdeveloptool"
-RKDEVTOOL_LOADER="${FM_LOADER:-/tmp/rk3588_spl_loader_v1.15.113.bin}"
 UBOOT_IMAGE="$RK_SDK_DIR/output/uboot/u-boot-rockchip.bin"
 UBOOT_LBA="0x40"
 
@@ -26,6 +25,33 @@ purple()
 {
 	printf '\033[35m%s\033[0m\n' "$*"
 }
+
+RK_CONFIG="$RK_SDK_DIR/.config"
+[ -f "$RK_CONFIG" ] && [ -s "$RK_CONFIG" ] || die "SDK config not found: $RK_CONFIG"
+# shellcheck disable=SC1090
+. "$RK_CONFIG"
+
+[ -n "${RK_CHIP:-}" ] || die "RK_CHIP is empty in $RK_CONFIG"
+
+find_loader()
+{
+	local loader
+	loader="$(find "$RK_SDK_DIR/output" -type f \
+		\( -name "${RK_CHIP}_spl_loader_*.bin" \
+		   -o -name "${RK_CHIP}_*_loader_*.bin" \
+		   -o -name "*_${RK_CHIP}_*_loader_*.bin" \
+		   -o -name "*${RK_CHIP}*_loader*.bin" \) 2>/dev/null \
+		| sort | tail -n 1 || true)"
+	if [ -z "$loader" ]; then
+		loader="$(find "$RK_SDK_DIR/rkbin/bin" -type f \
+			-name "${RK_CHIP}_usbplug_*.bin" 2>/dev/null \
+			| sort | tail -n 1)"
+	fi
+	[ -n "$loader" ] || die "no USB loader found for chip '$RK_CHIP' under output/ or rkbin/bin"
+	printf '%s\n' "$loader"
+}
+
+RKDEVTOOL_LOADER="${FM_LOADER:-$(find_loader)}"
 
 NO_REBOOT=0
 for arg in "$@"; do

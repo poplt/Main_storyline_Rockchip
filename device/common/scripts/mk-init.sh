@@ -79,6 +79,7 @@ pick_menu()
 
 CHIP_ARG=""
 BOARD_ARG=""
+DTS_NAME_ARG=""
 while [ $# -gt 0 ]; do
 	case "$1" in
 		-f|--force)
@@ -96,6 +97,8 @@ while [ $# -gt 0 ]; do
 				CHIP_ARG="$1"
 			elif [ -z "$BOARD_ARG" ]; then
 				BOARD_ARG="$1"
+			elif [ -z "$DTS_NAME_ARG" ]; then
+				DTS_NAME_ARG="$1"
 			else
 				die "too many arguments: $1"
 			fi
@@ -223,6 +226,20 @@ RK_CONFIG_PATH="$RK_CONFIG"
 KERNEL_VERSION="${RK_KERNEL_VERSION:-}"
 [ -n "$KERNEL_VERSION" ] || die "RK_KERNEL_VERSION is not set in generated config"
 
+# --- Read device tree name -----------------------------------------------
+# Priority:
+# 1. Command-line DTS name
+# 2. RK_KERNEL_DTS_NAME from the board defconfig
+# 3. RK_KERNEL_DTS as a fallback
+DTS_NAME="${DTS_NAME_ARG:-${RK_KERNEL_DTS_NAME:-${RK_KERNEL_DTS:-}}}"
+
+[ -n "$DTS_NAME" ] || die "RK_KERNEL_DTS_NAME is not set and no DTS name was specified"
+
+# Remove surrounding double quotes if present
+DTS_NAME="${DTS_NAME%\"}"
+DTS_NAME="${DTS_NAME#\"}"
+
+
 KERNEL_SRC="$RK_SDK_DIR/kernel-$KERNEL_VERSION"
 KERNEL_LINK="$RK_SDK_DIR/kernel"
 [ -d "$KERNEL_SRC" ] || die "kernel directory not found: $KERNEL_SRC"
@@ -233,6 +250,7 @@ ln -sfn "kernel-$KERNEL_VERSION" "$KERNEL_LINK"
 
 purple "SDK config generated: $RK_CONFIG_PATH"
 purple "  chip:         $chip"
+purple "  DTS_NAME:     $DTS_NAME"
 purple "  board config: $board_name"
 purple "  u-boot cfg:   ${RK_UBOOT_CFG:-<not set>}"
 purple "  rockchip tpl: ${ROCKCHIP_TPL:-<not set>}"

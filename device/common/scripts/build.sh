@@ -10,6 +10,7 @@
 #   ./build.sh fm
 #   ./build.sh fm-uboot
 #   ./build.sh fm-boot
+#   ./build.sh part
 
 set -e
 
@@ -52,6 +53,7 @@ Commands:
   fm-uboot  Flash output/uboot/u-boot-rockchip.bin to eMMC LBA 0x40.
   fm-boot   Flash output/extboot.img to eMMC boot partition LBA 0x8000.
             Pass -1 to skip the final reset.
+  part      Write the chip GPT partition table, then print it.
 EOF
 }
 
@@ -86,6 +88,11 @@ case "${1:-}" in
 	fm-boot)
 		shift
 		"$RK_SCRIPTS_DIR/mk-fm-boot.sh" "$@"
+		;;
+	part)
+		load_config
+		shift
+		"$RK_SCRIPTS_DIR/mk-part.sh" "$@"
 		;;
 
 	help|-h|--help|"")

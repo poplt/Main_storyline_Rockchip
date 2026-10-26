@@ -26,6 +26,7 @@ config DRM_AUX_HPD_BRIDGE
 	tristate
 	depends on DRM_BRIDGE && OF
 	select AUXILIARY_BUS
+	select DRM_KMS_HELPER
 	help
 	  Simple bridge that terminates the bridge chain and provides HPD
 	  support.

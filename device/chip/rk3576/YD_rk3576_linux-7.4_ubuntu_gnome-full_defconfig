@@ -1,7 +1,7 @@
 ROOTFS_TYPE="ubuntu"
 ROOTFS_VERSION="24.04"
 ROOTFS_DESKTOP="gnome"
-RK_KERNEL_VERSION="7.4"
+RK_KERNEL_VERSION="7.3"
 RK_KERNEL_CFG="linux_rk3576_defconfig"
 RK_KERNEL_DTS_NAME="rk3576-orangepi-5-plus"
 RK_UBOOT_CFG="evb-rk3576_defconfig"

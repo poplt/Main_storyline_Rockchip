@@ -33,6 +33,7 @@ DTS_NAME="${RK_KERNEL_DTS_NAME:-rk3588-orangepi-5-plus}"
 KERNEL_CFG="${RK_KERNEL_CFG:-}"
 ARCH="arm64"
 CROSS_COMPILE="aarch64-linux-gnu-"
+ROCKCHIP_CHIP="${RK_CHIP:-}"
 RK_OUTPUT_DIR="$RK_SDK_DIR/output"
 BOOT_DIR="$RK_OUTPUT_DIR/extboot"
 BOOT_IMG="$RK_OUTPUT_DIR/extboot.img"
@@ -49,7 +50,8 @@ fi
 
 kbuild()
 {
-	make -C "$KERNEL_DIR" ARCH="$ARCH" CROSS_COMPILE="$CROSS_COMPILE" "$@"
+	make -C "$KERNEL_DIR" ARCH="$ARCH" CROSS_COMPILE="$CROSS_COMPILE" \
+		ROCKCHIP_CHIP="$ROCKCHIP_CHIP" "$@"
 }
 
 show_build_params()
@@ -58,6 +60,7 @@ show_build_params()
 	purple "    KERNEL_DIR      = $KERNEL_DIR"
 	purple "    ARCH            = $ARCH"
 	purple "    CROSS_COMPILE   = $CROSS_COMPILE"
+	purple "    ROCKCHIP_CHIP   = ${ROCKCHIP_CHIP:-<none>}"
 	purple "    DEFCONFIG       = ${KERNEL_CFG:-<none>}"
 	purple "    DEFCONFIG_FILE  = ${KERNEL_DEFCONFIG:-<none>}"
 	purple "    DTS_NAME        = $DTS_NAME"

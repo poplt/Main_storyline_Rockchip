@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: GPL-2.0
+config PCIE_FUNC_RKEP
+	tristate "Rockchip PCIe Endpoint function driver (rkep)"
+	depends on PCI
+	help
+	  Host-side driver for the Rockchip PCIe Endpoint (RKEP) function.
+	  It communicates with a Rockchip EP device such as the RK182x
+	  accelerator card using DMA and interrupts, and creates a
+	  /dev/pcie-rkep-<BDF> misc device for user space.

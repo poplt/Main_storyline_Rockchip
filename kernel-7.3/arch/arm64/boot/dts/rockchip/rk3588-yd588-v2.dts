@@ -57,7 +57,7 @@
 	analog-sound {
 		compatible = "simple-audio-card";
 		pinctrl-names = "default";
-		simple-audio-card,name = "RK3588 EVB1 Audio";
+		simple-audio-card,name = "RK3588 Audio";
 		simple-audio-card,aux-devs = <&amp_headphone>, <&amp_speaker>;
 		simple-audio-card,bitclock-master = <&masterdai>;
 		simple-audio-card,format = "i2s";
@@ -959,6 +959,11 @@
 	status = "okay";
 };
 
+// &pcie3x4_ep {
+// 	reset-gpios = <&gpio1 RK_PB2 GPIO_ACTIVE_HIGH>;
+//  	vpcie3v3-supply = <&vcc3v3_sys>;
+// 	status = "okay";
+// };
 
 // WIFI
 

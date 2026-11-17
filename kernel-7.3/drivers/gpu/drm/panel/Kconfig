@@ -1172,6 +1172,17 @@ config DRM_PANEL_SHARP_LS060T1SX01
 	  FullHD (1080x1920) DSI panel as found in Dragonboard Display Adapter
 	  Bundle.
 
+config DRM_PANEL_SIMPLE_DSI
+	tristate "Device tree configured simple MIPI-DSI panel"
+	depends on OF
+	depends on DRM_MIPI_DSI
+	select VIDEOMODE_HELPERS
+	help
+	  Say Y here if you want a generic MIPI-DSI video mode panel driver
+	  whose initialization sequence, timings, lanes, format and delays
+	  are all provided in the device tree (compatible with the Rockchip
+	  vendor kernel "simple-panel-dsi" binding).
+
 config DRM_PANEL_SITRONIX_ST7701
 	tristate "Sitronix ST7701 panel driver"
 	depends on OF

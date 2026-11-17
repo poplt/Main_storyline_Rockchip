@@ -6,3 +6,7 @@ ifeq ($(ROCKCHIP_CHIP),rk3588)
 dtb-y := \
 	rk3588-yd588-v2.dtb
 endif
+ifeq ($(ROCKCHIP_CHIP),rk3568)
+dtb-y := \
+	rk3568-evb1-v10.dtb
+endif

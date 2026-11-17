@@ -2,3 +2,8 @@
 # Nested Git repository backups
 rkbin/backuprkbin.git/
 u-boot/backupu-boot.git/
+
+# Ubuntu rootfs build artifacts (large binaries, not for VCS)
+ubuntu26.10/binary/
+ubuntu26.10/ubuntu-base-*.tar.gz
+ubuntu26.10/ubuntu-*-rootfs.img

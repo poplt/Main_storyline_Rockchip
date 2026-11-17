@@ -45,6 +45,12 @@ find_loader()
 		   -o -name "*${RK_CHIP}*_loader*.bin" \) 2>/dev/null \
 		| sort | tail -n 1 || true)"
 	if [ -z "$loader" ]; then
+		loader="$(find "$RK_SDK_DIR/rkbin" -type f \
+			\( -name "${RK_CHIP}_loader_*.bin" \
+			   -o -name "MiniLoaderAll.bin" \) 2>/dev/null \
+			| sort | tail -n 1)"
+	fi
+	if [ -z "$loader" ]; then
 		loader="$(find "$RK_SDK_DIR/rkbin/bin" -type f \
 			-name "${RK_CHIP}_usbplug_*.bin" 2>/dev/null \
 			| sort | tail -n 1)"

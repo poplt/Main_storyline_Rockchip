@@ -194,3 +194,6 @@ sphinx_*/
 
 # bc language scripts (not LLVM bitcode)
 !kernel/time/timeconst.bc
+
+# Mali CSF firmware is required by CONFIG_EXTRA_FIRMWARE in the arm64 defconfigs
+!firmware/arm/mali/arch10.8/mali_csffw.bin

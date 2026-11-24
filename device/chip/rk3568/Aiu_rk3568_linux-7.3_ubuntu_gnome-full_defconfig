@@ -1,0 +1,7 @@
+ROOTFS_TYPE="ubuntu"
+ROOTFS_VERSION="26.10"
+ROOTFS_DESKTOP="gnome"
+RK_KERNEL_VERSION="7.3"
+RK_KERNEL_CFG="linux_rk356x_defconfig"
+RK_KERNEL_DTS_NAME="rk3568-evb1-v10"
+RK_UBOOT_CFG="evb-rk3568_defconfig"

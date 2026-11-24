@@ -1,0 +1,2 @@
+ROCKCHIP_TPL="rkbin/bin/rk35/rk3568_ddr_1560MHz_v1.26.bin"
+BL31="rkbin/bin/rk35/rk3568_bl31_v1.46.elf"
